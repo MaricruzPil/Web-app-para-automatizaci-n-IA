@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Asistente académico</title>
+  <link rel="icon" href="./assets/img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-symbol">A</span><span>Asistente académico<small>TECNOLOGÍAS DE LA
+            INFORMACIÓN</small></span></div><button id="theme" class="icon-button" type="button"
+        aria-label="Cambiar tema">☾</button>
+    </header>
+    <main class="workspace">
+      <section class="intro"><span class="kicker">3.4 · AUTOMATIZACIÓN IA</span>
+        <h1>Convierte una duda <em>en comprensión.</em></h1>
+      </section>
+      <section class="summary-bar" id="selection-trail"><span>Área: <b>Sin seleccionar</b></span><span>Nivel: <b>Sin
+            seleccionar</b></span><span>Pregunta: <b>Sin escribir</b></span><span>Método: <b>Sin seleccionar</b></span>
+      </section>
+      <div class="progress"><span class="progress-line"><i id="progress-bar"></i></span><b id="progress-label">1 de
+          4</b></div>
+      <div class="workspace-grid">
+        <section class="wizard" id="wizard">
+          <article class="step active">
+            <div class="step-top"><span class="step-number">01</span>
+              <div class="step-actions"><button class="secondary back" type="button" disabled>← Atrás</button><button
+                  class="primary next" type="button">Continuar →</button></div>
+            </div>
+            <h2>¿Qué quieres explorar?</h2>
+            <p class="step-help">Elige el área de tecnología relacionada con tu duda.</p>
+            <div class="option-grid" id="topics"></div>
+          </article>
+          <article class="step">
+            <div class="step-top"><span class="step-number">02</span>
+              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
+                  class="primary next" type="button">Continuar →</button></div>
+            </div>
+            <h2>¿Qué tan profundo quieres llegar?</h2>
+            <p class="step-help">Ajustaremos el lenguaje y los ejemplos a tu experiencia.</p>
+            <div class="level-grid" id="levels"></div>
+          </article>
+          <article class="step">
+            <div class="step-top"><span class="step-number">03</span>
+              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
+                  class="primary next" type="button">Continuar →</button></div>
+            </div>
+            <h2>Formula tu pregunta</h2>
+            <p class="step-help">Escribe la duda con tus propias palabras.</p><textarea id="pregunta" maxlength="1000"
+              placeholder="Ejemplo: ¿Cómo funciona una red neuronal?"></textarea>
+            <div class="counter"><span>Máximo 1000 caracteres</span><b id="count">0 / 1000</b></div>
+            <p id="question-error" class="error" role="alert"></p>
+          </article>
+          <article class="step">
+            <div class="step-top"><span class="step-number">04</span>
+              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
+                  class="primary" id="submit-button" type="button">Consultar →</button></div>
+            </div>
+            <h2>Elige cómo consultar</h2>
+            <p class="step-help">Selecciona la ruta configurada en tu flujo de n8n.</p>
+            <div class="integration-grid"><label><input type="radio" name="integracion"
+                  value="nativo"><span><strong>Nodo OpenAI</strong><small>Integración nativa de
+                    n8n</small></span></label><label><input type="radio" name="integracion" value="http"
+                  checked><span><strong>HTTP Request</strong><small>Responses API vía HTTP</small></span></label></div>
+            <div class="summary" id="summary"></div>
+            <p id="error-alert" class="error" role="alert"></p>
+          </article>
+        </section>
+        <section class="answer" id="answer" aria-live="polite">
+          <div class="answer-head"><span class="kicker">RESPUESTA DEL ASISTENTE</span><button class="secondary"
+              id="new-button" type="button">Nueva consulta</button></div>
+          <div class="answer-meta" id="answer-meta"></div>
+          <div class="answer-text" id="answer-text">Tu explicación aparecerá aquí.</div>
+          <div class="answer-actions"><button class="primary" id="copy-button" type="button">Copiar respuesta</button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>Asistente académico · Maricruz Pineda Lara</footer>
+  </div>
+  <script type="module" src="./assets/js/app.js"></script>
+</body>
+
+</html>
