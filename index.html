@@ -3,91 +3,130 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Asistente académico</title>
-  <link rel="icon" href="./assets/img/favicon.svg">
+  <link rel="icon" href="./assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400..600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
 <body>
   <div class="app-shell">
-    <header class="topbar">
-      <div class="brand"><span class="brand-symbol">A</span><span>Asistente académico<small>TECNOLOGÍAS DE LA
-            INFORMACIÓN</small></span></div><button id="theme" class="icon-button" type="button"
-        aria-label="Cambiar tema">☾</button>
-    </header>
-    <main class="workspace">
-      <section class="intro"><span class="kicker">3.4 · AUTOMATIZACIÓN IA</span>
-        <h1>Convierte una duda <em>en comprensión.</em></h1>
-      </section>
-      <section class="summary-bar" id="selection-trail"><span>Área: <b>Sin seleccionar</b></span><span>Nivel: <b>Sin
-            seleccionar</b></span><span>Pregunta: <b>Sin escribir</b></span><span>Método: <b>Sin seleccionar</b></span>
-      </section>
-      <div class="progress"><span class="progress-line"><i id="progress-bar"></i></span><b id="progress-label">1 de
-          4</b></div>
-      <div class="workspace-grid">
-        <section class="wizard" id="wizard">
-          <article class="step active">
-            <div class="step-top"><span class="step-number">01</span>
-              <div class="step-actions"><button class="secondary back" type="button" disabled>← Atrás</button><button
-                  class="primary next" type="button">Continuar →</button></div>
-            </div>
-            <h2>¿Qué quieres explorar?</h2>
-            <p class="step-help">Elige el área de tecnología relacionada con tu duda.</p>
-            <div class="option-grid" id="topics"></div>
-          </article>
-          <article class="step">
-            <div class="step-top"><span class="step-number">02</span>
-              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
-                  class="primary next" type="button">Continuar →</button></div>
-            </div>
-            <h2>¿Qué tan profundo quieres llegar?</h2>
-            <p class="step-help">Ajustaremos el lenguaje y los ejemplos a tu experiencia.</p>
-            <div class="level-grid" id="levels"></div>
-          </article>
-          <article class="step">
-            <div class="step-top"><span class="step-number">03</span>
-              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
-                  class="primary next" type="button">Continuar →</button></div>
-            </div>
-            <h2>Formula tu pregunta</h2>
-            <p class="step-help">Escribe la duda con tus propias palabras.</p><textarea id="pregunta" maxlength="1000"
-              placeholder="Ejemplo: ¿Cómo funciona una red neuronal?"></textarea>
-            <div class="counter"><span>Máximo 1000 caracteres</span><b id="count">0 / 1000</b></div>
-            <p id="question-error" class="error" role="alert"></p>
-          </article>
-          <article class="step">
-            <div class="step-top"><span class="step-number">04</span>
-              <div class="step-actions"><button class="secondary back" type="button">← Atrás</button><button
-                  class="primary" id="submit-button" type="button">Consultar →</button></div>
-            </div>
-            <h2>Elige cómo consultar</h2>
-            <p class="step-help">Selecciona la ruta configurada en tu flujo de n8n.</p>
-            <div class="integration-grid"><label><input type="radio" name="integracion"
-                  value="nativo"><span><strong>Nodo OpenAI</strong><small>Integración nativa de
-                    n8n</small></span></label><label><input type="radio" name="integracion" value="http"
-                  checked><span><strong>HTTP Request</strong><small>Responses API vía HTTP</small></span></label></div>
-            <div class="summary" id="summary"></div>
-            <p id="error-alert" class="error" role="alert"></p>
-          </article>
-        </section>
-        <section class="answer" id="answer" aria-live="polite">
-          <div class="answer-head"><span class="kicker">RESPUESTA DEL ASISTENTE</span><button class="secondary"
-              id="new-button" type="button">Nueva consulta</button></div>
-          <div class="answer-meta" id="answer-meta"></div>
-          <div class="answer-text" id="answer-text">Tu explicación aparecerá aquí.</div>
-          <div class="answer-actions"><button class="primary" id="copy-button" type="button">Copiar respuesta</button>
-          </div>
-        </section>
+    <header class="top">
+      <div class="brand" aria-label="Asistente académico">
+        <svg viewBox="0 0 34 34" aria-hidden="true">
+          <path d="M4 30V16C4 5 30 5 30 16v14z" fill="#BC96E6" stroke="#210B2C" stroke-width="2.5" />
+          <circle cx="17" cy="17" r="4.5" fill="#FFD166" stroke="#210B2C" stroke-width="2.5" />
+        </svg>
+        <span>Asistente académico</span>
       </div>
+    </header>
+
+    <main class="deck" id="deck" data-view="question">
+      <section class="left" id="wizard" aria-label="Configuración de la consulta">
+        <div class="progress-wrap">
+          <div class="progress-copy"><span>Ruta de consulta</span><strong id="progress-label">1 de 4</strong></div>
+          <div class="progress-track" aria-hidden="true"><i id="progress-bar"></i></div>
+        </div>
+
+        <section class="card panel topic-panel">
+          <div class="panel-heading">
+            <span class="panel-index">01</span>
+            <div>
+              <h2>Elige un territorio</h2>
+              <p>¿Qué quieres explorar hoy?</p>
+            </div>
+          </div>
+          <div class="tiles" id="topics"></div>
+        </section>
+
+        <section class="card panel compact-panel">
+          <div class="panel-heading compact-heading">
+            <span class="panel-index">02</span>
+            <div>
+              <h2>Marca la profundidad</h2>
+              <p>Adaptaremos el lenguaje y los ejemplos.</p>
+            </div>
+          </div>
+          <div class="levels" id="levels"></div>
+        </section>
+
+        <section class="card panel compact-panel integration-panel">
+          <div class="panel-heading compact-heading">
+            <span class="panel-index">04</span>
+            <div>
+              <h2>Elige la ruta</h2>
+              <p>Selecciona cómo se procesará tu consulta.</p>
+            </div>
+          </div>
+          <div class="integrations">
+            <label>
+              <input type="radio" name="integracion" value="nativo">
+              <span class="integration-option"><strong>Nodo OpenAI</strong><small>Integración nativa de n8n</small></span>
+            </label>
+            <label>
+              <input type="radio" name="integracion" value="http" checked>
+              <span class="integration-option"><strong>HTTP Request</strong><small>Responses API vía HTTP</small></span>
+            </label>
+          </div>
+          <div class="route-summary" id="summary" aria-live="polite"></div>
+        </section>
+
+        <div class="selection-trail" id="selection-trail" aria-live="polite"></div>
+        <button class="btn primary mobile-continue" id="continue-button" type="button">Continuar con mi pregunta</button>
+      </section>
+
+      <section class="flip-stage" id="flip-stage" aria-live="polite">
+        <div class="flip-inner">
+          <form class="face question-face card" id="question-card" novalidate>
+            <div class="face-heading">
+              <div>
+                <span class="panel-index">03</span>
+                <h1>Formula tu pregunta</h1>
+                <p>Escribe la duda con tus propias palabras.</p>
+              </div>
+              <span class="question-mark" aria-hidden="true">?</span>
+            </div>
+            <label class="sr-only" for="pregunta">Pregunta</label>
+            <textarea id="pregunta" maxlength="1000" placeholder="Ejemplo: ¿Cómo funciona una red neuronal?"></textarea>
+            <div class="counter"><span>Máximo 1000 caracteres</span><strong id="count">0 / 1000</strong></div>
+            <p id="question-error" class="error" role="alert"></p>
+            <div class="actions">
+              <button class="btn ghost back-button" id="back-button" type="button">Atrás</button>
+              <button class="btn primary" id="submit-button" type="submit">Consultar al asistente</button>
+            </div>
+          </form>
+
+          <section class="face answer card" id="answer">
+            <div class="answer-head">
+              <div>
+                <span class="answer-label">Respuesta del asistente</span>
+                <h2>Una explicación a tu medida</h2>
+              </div>
+              <button class="btn ghost small" id="new-button" type="button">Nueva consulta</button>
+            </div>
+            <div class="answer-meta" id="answer-meta"></div>
+            <div class="sheet">
+              <div class="answer-stamp" id="answer-stamp" aria-hidden="true">
+                <span>Nivel</span><strong id="answer-stamp-level"></strong>
+              </div>
+              <div class="answer-text" id="answer-text">Tu explicación aparecerá aquí.</div>
+            </div>
+            <div class="answer-actions">
+              <button class="btn primary small" id="copy-button" type="button">Copiar respuesta</button>
+              <span class="answer-note">Verifica las ideas importantes en tus fuentes.</span>
+            </div>
+          </section>
+        </div>
+      </section>
     </main>
-    <footer>Asistente académico · Maricruz Pineda Lara</footer>
+
+    <p class="global-error error" id="error-alert" role="alert"></p>
+    <footer>Maricruz Pineda Lara</footer>
   </div>
+
   <script type="module" src="./assets/js/app.js"></script>
 </body>
 
